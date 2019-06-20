@@ -26,6 +26,7 @@ Pre-requisites:
 
 ### Create or Update your Dynamic Groups
   In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://preview.oci.oraclecorp.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To)
+
   When specifying a rule, consider the following examples:
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
@@ -80,7 +81,7 @@ Create application
   ```
   fn init --runtime python list-instances
   ```
-  Enter the directory, create a new __init__.py file so the directory can be recognized as a package by Python.
+  Enter the directory, create a new `__init__.py` file so the directory can be recognized as a package by Python.
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
