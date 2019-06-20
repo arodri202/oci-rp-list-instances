@@ -1,4 +1,4 @@
-# Resource Principle function for returning the instances of the calling compartment.
+# Resource Principle Function for Returning the Instances of the Calling Compartment.
 
   This function uses Resource Principles to securely receive information about the user's information from OCI and returns a list of all instances within the compartment that calls the function.
 
