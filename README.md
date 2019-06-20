@@ -4,7 +4,7 @@
 
   Uses the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html) to create a client that receive user information when called in the OCI or a valid config file exists.
 
-  As you make your way through this tutorial, look out for this icon. ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4) Whenever you see it, it's time for you to perform an action.
+  As you make your way through this tutorial, look out for this icon. ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6) Whenever you see it, it's time for you to perform an action.
 
 
 Pre-requisites:
@@ -28,7 +28,7 @@ Pre-requisites:
   In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://preview.oci.oraclecorp.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To)
   When specifying a rule, consider the following examples:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   * If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
   ```
   ALL {resource.type = 'fnfunc', resource.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa23______smwa'}
@@ -48,7 +48,7 @@ Pre-requisites:
 
   Your policy should look something like this:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   Allow dynamic-group <your dynamic group name> to inspect instance-family in compartment <your compartment name>
   ```
@@ -72,7 +72,7 @@ Create application
 ------------------
   Get the python boilerplate by running:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   fn init --runtime python <function-name>
   ```
@@ -82,13 +82,13 @@ Create application
   ```
   Enter the directory, create a new __init__.py file so the directory can be recognized as a package by Python.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   touch __init__.py
   ```
 
 ### Create an Application that is connected to Oracle Functions
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]'
   ```
@@ -104,7 +104,7 @@ Writing the Function
 ### Requirements
   Update your requirements.txt file to contain the following:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   fdk
   oci-cli
@@ -113,7 +113,7 @@ Writing the Function
 ### Open func.py
   Update the imports so that you contain the following.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```python
   import io
   import json
@@ -135,7 +135,7 @@ Writing the Function
 ### The Handler method
   This is what is called when the function is invoked by Oracle Functions, delete what is given from the boilerplate and update it to contain the following:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```python
   def handler(ctx, data: io.BytesIO=None):
       provider = rp.ResourcePrincipalProvider() # initialized provider here
@@ -149,13 +149,13 @@ Writing the Function
 ### The do method
   Create the following method.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```python
   def do(provider):
   ```
   This is where we'll put the bulk of our code that will connect to OCI and return the list of compartments in our tenancy.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```python
       # List instances (in IAD) --------------------------------------------------------------------------------
         client = oci.core.ComputeClient(provider.config, signer=provider.signer)
@@ -178,7 +178,7 @@ Writing the Function
 ### Command Line Usage
   If you want to be able to invoke this function from the command line, copy and paste this at the bottom of your code.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```python
   def main():
       # If run from the command-line, fake up the provider by using stock user credentials
@@ -196,7 +196,7 @@ Test
 ----
 ### Deploy the function
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   fn -v deploy --app <your app name>
   ```
@@ -209,7 +209,7 @@ Test
 
 ### Invoke the function
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
+  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUZOGCFSYTOBTKAQ2S5BPSW6)
   ```
   fn invoke <your app name> <your function name>
   ```
