@@ -27,26 +27,22 @@ Pre-requisites:
 ### Create or Update your Dynamic Groups
   In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://preview.oci.oraclecorp.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To). When specifying a rule, consider the following examples:
 
-  If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
+  * If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
   ```
   ALL {resource.type = 'fnfunc', resource.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa23______smwa'}
   ```
 
-  If you want a specific function to be able to access a resource, enter a rule similar to the following that adds the function with the specified OCID to the dynamic group:
+  * If you want a specific function to be able to access a resource, enter a rule similar to the following that adds the function with the specified OCID to the dynamic group:
   ```
   resource.id = 'ocid1.fnfunc.oc1.iad.aaaaaaaaacq______dnya'
   ```
 
-  If you want all functions with a specific tag to be able to access a resource, enter a rule similar to the following that adds all functions with the specified tag to the dynamic group: (Not available in the Limited Availability Release.)
+  * If you want all functions with a specific tag to be able to access a resource, enter a rule similar to the following that adds all functions with the specified tag to the dynamic group: (Not available in the Limited Availability Release.)
   ```
   ALL {resource.type = 'fnfunc', tag.acmefunctionstag = 'johns-functions'}
   ```
 
-  Now that your dynamic group is created, create a new policy that allows your new dynamic group to inspect any resources you are interested in receiving information about, in this case we will grant access to
-  ```
-  instance-family
-  ```
-  in the functions related compartment.
+  Now that your dynamic group is created, create a new policy that allows your new dynamic group to inspect any resources you are interested in receiving information about, in this case we will grant access to `instance-family` in the functions related compartment.
 
   Your policy should look something like this:
   ```
