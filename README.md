@@ -41,6 +41,7 @@ Pre-requisites:
   resource.id = 'ocid1.fnfunc.oc1.iad.aaaaaaaaacq______dnya'
   ```
 
+### Create or Update Policies
   Now that your dynamic group is created, create a new policy that allows your new dynamic group to inspect any resources you are interested in receiving information about, in this case we will grant access to `instance-family` in the functions related compartment.
 
   Your policy should look something like this:
