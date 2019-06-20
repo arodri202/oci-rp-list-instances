@@ -1,6 +1,6 @@
 # Resource Principle Function for Returning the Instances of the Calling Compartment.
 
-  This function uses Resource Principles to securely receive information about the user's information from OCI and returns a list of all instances within the compartment that calls the function.
+  This function uses Resource Principals to securely receive information about the user's information from OCI and returns a list of all instances within the compartment that calls the function.
 
   Uses the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html) to create a client that receive user information when called in the OCI or a valid config file exists.
 
@@ -168,7 +168,7 @@ Writing the Function
 
         return resp
   ```
-  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the provider's data we get from Resource Principles and it allows us to make a call to compute services for information on our instances.
+  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the provider's data we get from Resource Principals and it allows us to make a call to compute services for information on our instances.
 
 ### Command Line Usage
   If you want to be able to invoke this function from the command line, copy and paste this at the bottom of your code.
@@ -199,7 +199,7 @@ Test
   e.g.
 
   ```
-  fn -v deploy --app resource-principles
+  fn -v deploy --app resource-principal
   ```
 
 ### Invoke the function
@@ -212,6 +212,6 @@ Test
   e.g.
 
   ```
-  fn invoke resource-principles list-instances
+  fn invoke resource-principal list-instances
   ```
   Upon success, you should see all of the instances in your compartment appear in your terminal.
