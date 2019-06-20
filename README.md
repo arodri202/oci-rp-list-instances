@@ -127,11 +127,7 @@ Writing the Function
   import rp
   ```
 
-  By calling
-  ```python
-  sys.path.append(".")
-  ```
-   the Python interpreter is able to import the rp.py Python module in your directory that you downloaded earlier.
+  By calling `sys.path.append(".")` the Python interpreter is able to import the `rp.py` Python module in your directory that you downloaded earlier.
 
 ### The Handler method
   This is what is called when the function is invoked by Oracle Functions, delete what is given from the boilerplate and update it to contain the following:
