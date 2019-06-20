@@ -25,7 +25,8 @@ Pre-requisites:
   ```
 
 ### Create or Update your Dynamic Groups
-  In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://preview.oci.oraclecorp.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To) When specifying a rule, consider the following examples:
+  In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://preview.oci.oraclecorp.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To)
+  When specifying a rule, consider the following examples:
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
   * If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
@@ -46,7 +47,7 @@ Pre-requisites:
   Now that your dynamic group is created, create a new policy that allows your new dynamic group to inspect any resources you are interested in receiving information about, in this case we will grant access to `instance-family` in the functions related compartment.
 
   Your policy should look something like this:
-  
+
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
   ```
   Allow dynamic-group <your dynamic group name> to inspect instance-family in compartment <your compartment name>
