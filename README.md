@@ -78,7 +78,7 @@ Create application
   ```
   e.g.
   ```
-  fn init --runtime python list-compartments
+  fn init --runtime python list-instances
   ```
   Enter the directory, create a new __init__.py file so the directory can be recognized as a package by Python.
 
@@ -157,10 +157,6 @@ Writing the Function
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAWVU55QKIKWGQPZUKK5BPSA4)
   ```python
-    client = oci.identity.IdentityClient(provider.config, signer=provider.signer)
-    # OCI API for managing users, groups, compartments, and policies.
-
-    try:
       # List instances (in IAD) --------------------------------------------------------------------------------
         client = oci.core.ComputeClient(provider.config, signer=provider.signer)
         # Use this API to manage resources such as virtual cloud networks (VCNs), compute instances, and block storage volumes.
