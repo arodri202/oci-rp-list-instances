@@ -117,7 +117,6 @@ Writing the Function
   import io
   import json
   import sys
-  import importlib
   from fdk import response
 
   import oci.core
@@ -133,7 +132,7 @@ Writing the Function
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
   ```python
   def handler(ctx, data: io.BytesIO=None):
-      provider = rp.ResourcePrincipalProvider() # initialized provider here
+      provider = rp.ResourcePrincipalProvider()
       resp = do(provider)
       return response.Response(
           ctx, response_data=json.dumps(resp),
