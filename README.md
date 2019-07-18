@@ -11,9 +11,7 @@ Pre-requisites:
 ---------------
   1. Start by making sure all of your policies are correct from this [guide](https://preview.oci.oraclecorp.com/iaas/Content/Functions/Tasks/functionscreatingpolicies.htm?tocpath=Services%7CFunctions%7CPreparing%20for%20Oracle%20Functions%7CConfiguring%20Your%20Tenancy%20for%20Function%20Development%7C_____4)
 
-  2. Download [rp.py](https://github.com/arodri202/oci-rp-list-instances/blob/master/rp.py) and move it into your working directory.
-
-  3. Have [Fn CLI setup with Oracle Functions](https://preview.oci.oraclecorp.com/iaas/Content/Functions/Tasks/functionsconfiguringclient.htm?tocpath=Services%7CFunctions%7CPreparing%20for%20Oracle%20Functions%7CConfiguring%20Your%20Client%20Environment%20for%20Function%20Development%7C_____0)
+  2. Have [Fn CLI setup with Oracle Functions](https://preview.oci.oraclecorp.com/iaas/Content/Functions/Tasks/functionsconfiguringclient.htm?tocpath=Services%7CFunctions%7CPreparing%20for%20Oracle%20Functions%7CConfiguring%20Your%20Client%20Environment%20for%20Function%20Development%7C_____0)
 
 ### Switch to the correct context
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
@@ -59,13 +57,6 @@ Pre-requisites:
 
   For more information on how to create policies, go [here.](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm)
 
-
-
-### (Optional) Have a config file in the ~/.oci directory
-  If you would like to call the function from the command line you will need a valid config file.
-
-  If you do not have one, go [here](https://preview.oci.oraclecorp.com/iaas/Content/Functions/Tasks/functionsconfigureocicli.htm?tocpath=Services%7CFunctions%7CPreparing%20for%20Oracle%20Functions%7CConfiguring%20Your%20Client%20Environment%20for%20Function%20Development%7C_____2)
-
 Create application
 ------------------
   Get the python boilerplate by running:
@@ -107,6 +98,7 @@ Writing the Function
   ```
   fdk
   oci-cli
+
   ```
 
 ### Open func.py
@@ -116,15 +108,10 @@ Writing the Function
   ```python
   import io
   import json
-  import sys
   from fdk import response
 
-  import oci.core
-  sys.path.append(".")
-  import rp
+  import oci
   ```
-
-  By calling `sys.path.append(".")` the Python interpreter is able to import the `rp.py` Python module in your directory that you downloaded earlier.
 
 ### The Handler method
   This is what is called when the function is invoked by Oracle Functions, delete what is given from the boilerplate and update it to contain the following:
@@ -132,8 +119,8 @@ Writing the Function
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
   ```python
   def handler(ctx, data: io.BytesIO=None):
-      provider = rp.ResourcePrincipalProvider()
-      resp = do(provider)
+      signer = oci.auth.signers.get_resource_principals_signer()
+      resp = do(signer)
       return response.Response(
           ctx, response_data=json.dumps(resp),
           headers={"Content-Type": "application/json"}
@@ -145,47 +132,30 @@ Writing the Function
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
   ```python
-  def do(provider):
+  def do(signer):
   ```
   This is where we'll put the bulk of our code that will connect to OCI and return the list of compartments in our tenancy.
 
   ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
   ```python
       # List instances (in IAD) --------------------------------------------------------------------------------
-        client = oci.core.ComputeClient(provider.config, signer=provider.signer)
-        # Use this API to manage resources such as virtual cloud networks (VCNs), compute instances, and block storage volumes.
-        try:
-            inst = client.list_instances(provider.compartment)
+      client = oci.core.ComputeClient(config={}, signer=signer)
+      # Use this API to manage resources such as virtual cloud networks (VCNs), compute instances, and block storage volumes.
+      try:
+          inst = client.list_instances(signer.compartment_id)
 
-            inst = [[i.id, i.display_name] for i in inst.data]
-        except Exception as e:
-            inst = str(e)
+          inst = [[i.id, i.display_name] for i in inst.data]
+      except Exception as e:
+          inst = str(e)
 
-        resp = {
-                 "instances": inst,
-                }
+      resp = {
+               "instances": inst,
+              }
 
-        return resp
+      return resp
   ```
-  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the provider's data we get from Resource Principals and it allows us to make a call to compute services for information on our instances.
+  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the resource principal's signer data, since resource principal is already pre-configured we do not need to pass in a valid config dictionary, we are now able to make a call to identity services for information on our compartments.
 
-### Command Line Usage
-  If you want to be able to invoke this function from the command line, copy and paste this at the bottom of your code.
-
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-list-instances/master/images/userinput.png?token=AK4AYAUDF7AOJ42DOGGYO725BPUJU)
-  ```python
-  def main():
-      # If run from the command-line, fake up the provider by using stock user credentials
-      provider = rp.MockResourcePrincipalProvider()
-      resp = do(provider)
-      print((resp))
-      print(json.dumps(resp))
-
-
-  if __name__ == '__main__':
-      main()
-
-  ```
 Test
 ----
 ### Deploy the function
